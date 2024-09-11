@@ -8,17 +8,22 @@ const InfiniteScrollingRedditPosts = () => {
   // Fetch Reddit posts from a specific subreddit (e.g., r/pics)
   const fetchPosts = async (afterParam = null) => {
     setLoading(true); // Start loading state
-    const subreddit = "pics"; // Change to any subreddit you prefer
+    const subreddit = "technology";
     const url = `https://www.reddit.com/r/${subreddit}.json?limit=10${
       afterParam ? `&after=${afterParam}` : ""
     }`;
 
-    const response = await fetch(url);
-    const data = await response.json();
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
 
-    setPosts((prevPosts) => [...prevPosts, ...data.data.children]); // Append new posts to the list
-    setAfter(data.data.after); // Store the 'after' token for pagination
-    setLoading(false); // End loading state
+      setPosts((prevPosts) => [...prevPosts, ...data.data.children]); // Append new posts to the list
+      setAfter(data.data.after); // Store the 'after' token for pagination
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    } finally {
+      setLoading(false); // End loading state
+    }
   };
 
   // Fetch posts on component mount and when 'after' changes
@@ -29,14 +34,13 @@ const InfiniteScrollingRedditPosts = () => {
   // Handle scroll event to load more posts when reaching the bottom of the page
   const handleScroll = () => {
     if (
-      window.innerHeight + document.documentElement.scrollTop !==
-        document.documentElement.offsetHeight ||
-      loading ||
-      !after
+      window.innerHeight + document.documentElement.scrollTop + 100 >=
+        document.documentElement.offsetHeight &&
+      !loading &&
+      after
     ) {
-      return;
+      fetchPosts(after); // Load more posts using the 'after' token
     }
-    fetchPosts(after); // Load more posts using the 'after' token
   };
 
   // Attach and clean up the scroll event listener
@@ -56,7 +60,7 @@ const InfiniteScrollingRedditPosts = () => {
               <img
                 src={post.data.thumbnail}
                 alt={post.data.title}
-                className="w-full h-auto mt-2 rounded"
+                className="w-full max-w-md h-auto mt-2 rounded"
               />
             )}
             <p className="text-sm text-gray-700 mt-2">
