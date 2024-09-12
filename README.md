@@ -85,9 +85,9 @@ To implement infinite scrolling, you can monitor the user's scroll position and 
 
 Use the loading state to track data fetching and display a spinner while loading.
 
-`js
+```js
 {loading && <div className="spinner">Loading...</div>}
-`
+```
 
 Set loading to true before the API call and false after posts are loaded.
 
