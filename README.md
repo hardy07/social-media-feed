@@ -19,7 +19,7 @@ This project demonstrates how to implement infinite scrolling in a React applica
 
 1. Clone the repository:
 
-   ```bash
+   ```js
    git clone https://github.com/hardy07/social-media-feed.git
    cd social-media-feed
    ```
