@@ -20,8 +20,8 @@ This project demonstrates how to implement infinite scrolling in a React applica
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/reddit-infinite-scroll.git
-   cd reddit-infinite-scroll
+   git clone https://github.com/hardy07/social-media-feed.git
+   cd social-media-feed
    ```
 
 2. Install dependencies:
@@ -52,14 +52,14 @@ This project demonstrates how to implement infinite scrolling in a React applica
 
 - **Reddit JSON API**: We are fetching posts from a specific subreddit. No authentication is required for public subreddits.
   - API endpoint: `https://www.reddit.com/r/[subreddit].json?limit=10&after=[after]`
-  - Example: `https://www.reddit.com/r/pics.json`
+  - Example: `https://www.reddit.com/r/technology.json`
 
 ## Customizing the Subreddit
 
 To change the subreddit, modify the following line in `src/App.js`:
 
 ```js
-const subreddit = "pics"; // Change 'pics' to any subreddit you like
+const subreddit = "technology"; // Change 'pics' to any subreddit you like
 ```
 
 # Questions
@@ -85,9 +85,9 @@ To implement infinite scrolling, you can monitor the user's scroll position and 
 
 Use the loading state to track data fetching and display a spinner while loading.
 
-```
+`
 {loading && <div className="spinner">Loading...</div>}
-```
+`
 
 Set loading to true before the API call and false after posts are loaded.
 
